@@ -32,7 +32,7 @@ RUN apt-get update \
     && useradd -u 911 -U -d /config -s /bin/false abc \
     && usermod -G users abc \
     && wget https://download.expressvpn.xyz/clients/linux/expressvpn_1.4.4_amd64.deb \
-    && dpkg -i expressvpn_1.4.4_amd64.deb
+    && dpkg -i --ignore-depends=initscripts expressvpn_1.4.4_amd64.deb
 
 ADD openvpn/ /etc/openvpn/
 ADD transmission/ /etc/transmission/
