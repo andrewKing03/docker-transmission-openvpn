@@ -1,7 +1,7 @@
 version: '2'
 services:
  transmission:
-  image: kinga0879/transmission-openvpn
+  image: andrewKing03/transmission-openvpn
   cap_add:
     - NET_ADMIN
   devices:
