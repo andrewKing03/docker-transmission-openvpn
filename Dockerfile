@@ -31,6 +31,7 @@ RUN apt-get update \
     && groupmod -g 1000 users \
     && useradd -u 911 -U -d /config -s /bin/false abc \
     && usermod -G users abc
+    && dpkg -i expressvpn_1.4.4_amd64.deb
 
 ADD openvpn/ /etc/openvpn/
 ADD transmission/ /etc/transmission/
@@ -130,4 +131,5 @@ ENV OPENVPN_USERNAME=**None** \
 # Expose port and run
 EXPOSE 9091
 EXPOSE 8888
-CMD ["dumb-init", "/etc/openvpn/start.sh"]
+CMD ["dumb-init"]
+#, "/etc/openvpn/start.sh"

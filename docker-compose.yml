@@ -1,7 +1,7 @@
 version: '2'
 services:
  transmission:
-  image: haugene/transmission-openvpn
+  image: kinga0879/transmission-openvpn
   cap_add:
     - NET_ADMIN
   devices:
@@ -15,13 +15,18 @@ services:
     - 8.8.4.4
   volumes:
     - /etc/localtime:/etc/localtime:ro
-    - /your/storage/path/:/data
+    - /home/aking/media/video/:/data
+    - /home/aking/transmission/expressvpn_dc.ovpn:/etc/openvpn/custom/expressvpn_dc.ovpn
+    - /home/aking/transmission/password.ovpn:/etc/openvpn/custom/password.ovpn
   environment:
-    - OPENVPN_PROVIDER=PIA
-    - OPENVPN_USERNAME=username
-    - OPENVPN_PASSWORD=password
-    - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
-    - LOCAL_NETWORK=192.168.0.0/24
+    - OPENVPN_CONFIG=expressvpn_dc
+    - OPENVPN_PROVIDER=CUSTOM
+    - OPENVPN_USERNAME=8vtllggs3zcjw1mn3kml632w
+    - OPENVPN_PASSWORD=ufqatp2v6vjp4imslohit3ap
+    - LOCAL_NETWORK=10.0.1.0/24
+    - PUID=1000
+    - PGID=1000
+
  proxy:
   image: haugene/transmission-openvpn-proxy
   links:
@@ -30,10 +35,3 @@ services:
     - 8080:8080
   volumes:
     - /etc/localtime:/etc/localtime:ro
-
- rss:
-  image: haugene/transmission-rss
-  links:
-    - transmission
-  environment:
-    - RSS_URL=http://.../xxxxx.rss
